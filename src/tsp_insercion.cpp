@@ -13,27 +13,21 @@ using namespace std::chrono;
 
 //Función que lee el archivo de datos y transforma el problema en un vectro de nodos
 void llenaGrafo(vector<nodo> &grafo,const char fichero[]){
-    ifstream f(fichero);
+   ifstream f(fichero);
     double valor = 0.0;
     double x,y;
     int n = 0;
     nodo ciudad;
 
     if (f){
-        f.ignore(11);
-        f >> n;
-
-        for(int i = 0;i < n; i++){
-            f >> valor;
+        while(f >> valor >> x >> y){
             ciudad.setID(valor);
-            f >> x;
-            f >> y;
             ciudad.setCiudad(x,y);
 
             grafo.push_back(ciudad);
-
         }
-    }
+    }else
+		cout << "Error en la lectura del archivo"<<endl;
 
     f.close();
 }
@@ -58,21 +52,20 @@ void distancia(vector<nodo> &grafo, vector<vector<double>> &distancias){
 
 void trianguloInicio(vector<nodo> &grafo, vector<nodo> &solucion){
 	nodo norte, oeste, este;
+	norte = grafo[grafo.size()/2];
+	oeste = grafo[grafo.size()/2];
+	este = grafo[grafo.size()/2];
 
-	norte = grafo[0];
-	oeste = grafo[0];
-	este = grafo[0];
-
-	for(unsigned i = 1; i < grafo.size(); i++){
+	for(unsigned i = 0; i < grafo.size(); i++){
 		if(grafo[i].getY() > norte.getY()){
 			norte = grafo[i];
 		}
 
-		else if(grafo[i].getX() < oeste.getX()){
+		 if(grafo[i].getX() < oeste.getX()){
 			oeste = grafo[i];
 		}
 
-		else if(grafo[i].getX() > este.getX()){
+		 if(grafo[i].getX() > este.getX()){
 			este = grafo[i];
 		}
 	}
@@ -81,6 +74,15 @@ void trianguloInicio(vector<nodo> &grafo, vector<nodo> &solucion){
 	solucion.push_back(oeste);
 	solucion.push_back(este);
 
+	/*
+	norte = grafo[grafo.size()-1];
+	oeste = grafo[((grafo.size()*2)/3)-1];
+	este = grafo[grafo.size()-1];
+
+	solucion.push_back(norte);
+	solucion.push_back(oeste);
+	solucion.push_back(este);
+*/
 }
 
 //Calculo de la distancia total de una solucion dada
