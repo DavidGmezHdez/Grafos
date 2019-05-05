@@ -62,6 +62,7 @@
 
 
 // FRAN //
+/*
 int main(int argc, char* argv[]){
 
 	vector<nodo> nodos, solucion;
@@ -84,4 +85,41 @@ int main(int argc, char* argv[]){
 	cout << endl << "Transcurrido: " << transcurrido.count() << endl;
 
 	return 0;
+*/
+// DAVID //
+
+int main(){
+	vector<nodo> nodos;
+	vector<arista> aristas;
+
+	nodo n1(1,1);
+	nodo n2(2,2);
+	nodo n3(3,3);
+	nodo n4(4,2);
+	nodo n5(5,2);
+	nodo n6(6,1);
+
+	arista a12(12,n1,n2);
+	arista a23(23,n2,n3);
+	arista a24(23,n2,n4);
+	arista a35(35,n3,n5);
+	arista a45(45,n4,n5);
+	arista a36(36,n3,n6);
+
+	Grafo grafo(nodos,aristas);
+
+	grafo.aniadirNodo(n1);
+	grafo.aniadirNodo(n2);
+	grafo.aniadirNodo(n3);
+	grafo.aniadirNodo(n4);
+
+	grafo.aniadirArista(a12);
+	grafo.aniadirArista(a23);
+	grafo.aniadirArista(a24);
+	grafo.aniadirArista(a35);
+	grafo.aniadirArista(a45);
+	grafo.aniadirArista(a36);
+
+	cout<<"Recubrimiento del grafo"<<endl;
+	grafo.cubrimientoGrafo();
 }

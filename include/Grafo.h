@@ -1,6 +1,7 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include "Arista.h"
+#include <list>
 
 class Grafo{
     private:
@@ -26,6 +27,10 @@ class Grafo{
         nodo nodoMaxGrado();
 
         void eliminarAristasNodo(nodo n);
+
+        bool nodoConAristas(nodo n);
+
+        void cubrimientoGrafo();
 
 };
 

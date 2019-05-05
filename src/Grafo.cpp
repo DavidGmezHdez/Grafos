@@ -84,10 +84,50 @@ nodo Grafo::nodoMaxGrado(){
 }
 
 void Grafo::eliminarAristasNodo(nodo n){
-
     for(int i=0;i<aristas.size();i++){
         if(n.getIDNodo() == aristas[i].getIDNodo1() || n.getIDNodo() == aristas[i].getIDNodo2()){
             eliminarArista(aristas[i]);
         }
     }
+}
+
+bool Grafo::nodoConAristas(nodo n){
+    bool resultado = false;
+    bool salida = false;
+    for(int i=0;i<aristas.size() && !salida;i++){
+        if(n.getIDNodo() == aristas[i].getIDNodo1() || n.getIDNodo() == aristas[i].getIDNodo2()){
+            resultado = true;
+            salida = true;
+        }
+    }
+    return resultado;
+}
+
+void Grafo::cubrimientoGrafo(){
+    //Inicializamos los vertices como no visitados
+    bool visitados[nodos.size()];
+    
+    for(int i=0;i<nodos.size();i++){
+        visitados[i] = false;
+    }
+
+    for(int i=0;i<nodos.size();i++){
+        if(visitados[i] == false){
+            for(int k = 0;k<nodos.size();k++){
+                nodo aux = nodos[k];
+                if(visitados[k] == false){
+                    visitados[k] = true;
+                    visitados[i] = true;
+                    break;
+                }
+            }
+        }
+    }
+    
+    for(int i=0;i<nodos.size();i++){
+        if(visitados[i]){
+            cout<<"Nodo "<<nodos[i].getIDNodo()<<endl;
+        }
+    }    
+
 }

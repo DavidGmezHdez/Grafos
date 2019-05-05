@@ -35,9 +35,4 @@ void vecinoInsercion(const vector<vector<double> > &distancias, vector<int> &sol
 //Metodo que dada una solucion, devuelve los detalles de esa solucion con coordenadas de las ciudades
 void vecinoBuscarDatosCiudades(const vector<int> &solucion, vector<nodo> &ciudades, vector<nodo> &solucionC);
 
-
-
-
-
-
 #endif
