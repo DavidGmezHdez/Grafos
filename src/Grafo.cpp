@@ -1,5 +1,6 @@
 #include "Grafo.h"
 
+        using namespace std;
         Grafo::Grafo(int tamanio){
             this->n = tamanio;
             la =new list<int>[n];
@@ -10,7 +11,7 @@
         }
         vector<int> Grafo::recubrirGrafo(){
             bool visitados[n];
-            vector<int> resultado;
+            vector<int> nodoscubiertos;
             for(int i=0;i<n;i++){
                 visitados[i] = false;
             }
@@ -29,12 +30,11 @@
                     }
                 }
             }
-
+            for(int i=0;i<n;i++){
+                cout<<visitados[i];
+                if(visitados[i]){
+                    nodoscubiertos.push_back(i);
+                }
+            }
             
-        for(int i=0;i<n;i++){
-            if(visitados[i] == true)
-                resultado.push_back(i);
         }
-
-        return resultado;
-    }

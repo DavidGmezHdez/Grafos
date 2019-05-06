@@ -1,7 +1,10 @@
 #ifndef GRAFO_H
 #define GRAFO_H
-#include "Arista.h"
 #include <list>
+#include <iostream>
+#include <vector>
+
+using namespace std;
 
 class Grafo{
     private:
