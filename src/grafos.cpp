@@ -1,6 +1,6 @@
-#include "Grafo.h"
-#include "tsp_insercion.h"
-#include "tsp_cercania.h"
+#include "arbol.h"
+//#include "tsp_insercion.h"
+//#include "tsp_cercania.h"
 
 /*int main(int argc, char* argv[]){
 
@@ -89,37 +89,42 @@ int main(int argc, char* argv[]){
 // DAVID //
 
 int main(){
-	vector<nodo> nodos;
-	vector<arista> aristas;
+	/*Grafo grafo(6);
+	grafo.aniadirArista(0,1);
+	grafo.aniadirArista(1,2);
+	grafo.aniadirArista(1,3);
+	grafo.aniadirArista(1,4);
+	grafo.aniadirArista(2,3);
+	grafo.aniadirArista(3,6);
+	grafo.aniadirArista(4,5);
+	grafo.aniadirArista(5,6);
 
-	nodo n1(1,1);
-	nodo n2(2,2);
-	nodo n3(3,3);
-	nodo n4(4,2);
-	nodo n5(5,2);
-	nodo n6(6,1);
+	vector<int> nodoscubiertos = grafo.recubrirGrafo();
 
-	arista a12(12,n1,n2);
-	arista a23(23,n2,n3);
-	arista a24(23,n2,n4);
-	arista a35(35,n3,n5);
-	arista a45(45,n4,n5);
-	arista a36(36,n3,n6);
+	cout<<"Los nodos cubiertos son"<<endl;
+	for(int i=0;i<nodoscubiertos.size();i++){
+		cout<<nodoscubiertos[i]<<" ";
+	}
+	*/
 
-	Grafo grafo(nodos,aristas);
+	struct nodo *raiz = nuevoNodo(0);
+    raiz->hijoIzquierda                = nuevoNodo(1); 
+    raiz->hijoIzquierda->hijoIzquierda          = nuevoNodo(2); 
+    raiz->hijoIzquierda->hijoDerecha         = nuevoNodo(3); 
+    raiz->hijoIzquierda->hijoDerecha->hijoIzquierda   = nuevoNodo(4); 
+    raiz->hijoIzquierda->hijoDerecha->hijoDerecha  = nuevoNodo(5); 
+    raiz->hijoDerecha               = nuevoNodo(6); 
+    raiz->hijoDerecha->hijoDerecha        = nuevoNodo(7); 
 
-	grafo.aniadirNodo(n1);
-	grafo.aniadirNodo(n2);
-	grafo.aniadirNodo(n3);
-	grafo.aniadirNodo(n4);
+	vector<int> nodoscubiertos;
 
-	grafo.aniadirArista(a12);
-	grafo.aniadirArista(a23);
-	grafo.aniadirArista(a24);
-	grafo.aniadirArista(a35);
-	grafo.aniadirArista(a45);
-	grafo.aniadirArista(a36);
 
-	cout<<"Recubrimiento del grafo"<<endl;
-	grafo.cubrimientoGrafo();
+	cout<<"Los nodos cubiertos son "<<recubrimientoArbol(raiz,nodoscubiertos)<<endl;
+	for(int i=0;i<nodoscubiertos.size();i++){
+		cout<<nodoscubiertos[i]<<" ";
+	}
+
+
+	cout<<endl;
+
 }

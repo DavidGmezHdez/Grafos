@@ -15,8 +15,8 @@ $(BIN)/grafos: $(OBJ)/grafos.o $(LIB)/libgrafos.a
 $(BIN)/tsp_cercania: $(OBJ)/tsp_cercania.o $(LIB)/libgrafos.a
 	$(CXX) -o $(BIN)/tsp_cercania $(OBJ)/tsp_cercania.o -I$(INC) -L$(LIB) -lgrafos
 
-$(LIB)/libgrafos.a : $(OBJ)/Nodo.o $(OBJ)/Arista.o $(OBJ)/Grafo.o $(OBJ)/tsp_insercion.o $(OBJ)/tsp_cercania.o
-	ar rvs $(LIB)/libgrafos.a $(OBJ)/Nodo.o $(OBJ)/Arista.o $(OBJ)/Grafo.o $(OBJ)/tsp_insercion.o $(OBJ)/tsp_cercania.o
+$(LIB)/libgrafos.a : $(OBJ)/Nodo.o $(OBJ)/Arista.o $(OBJ)/Grafo.o $(OBJ)/tsp_insercion.o $(OBJ)/tsp_cercania.o $(OBJ)/arbol.o
+	ar rvs $(LIB)/libgrafos.a $(OBJ)/Nodo.o $(OBJ)/Arista.o $(OBJ)/Grafo.o $(OBJ)/tsp_insercion.o $(OBJ)/tsp_cercania.o $(OBJ)/arbol.o 
 
 $(OBJ)/Nodo.o : $(SRC)/Nodo.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Nodo.o $(SRC)/Nodo.cpp -I$(INC)
@@ -32,6 +32,9 @@ $(OBJ)/tsp_insercion.o : $(SRC)/tsp_insercion.cpp
 
 $(OBJ)/tsp_cercania.o : $(SRC)/tsp_cercania.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/tsp_cercania.o $(SRC)/tsp_cercania.cpp -I$(INC)
+
+$(OBJ)/Grafo.o : $(SRC)/arbol.cpp
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/arbol.o $(SRC)/arbol.cpp -I$(INC)
 
 $(OBJ)/grafos.o : $(SRC)/grafos.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/grafos.o $(SRC)/grafos.cpp -I$(INC)

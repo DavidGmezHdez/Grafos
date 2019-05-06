@@ -1,133 +1,40 @@
 #include "Grafo.h"
 
-Grafo::Grafo(vector<nodo>nuevosnodos,vector<arista>nuevasaristas){
-    this->nodos = nuevosnodos;
-    this->aristas = nuevasaristas;    
-}
-
-nodo Grafo::getNodo(int pos){
-    return nodos[pos];
-}
-
-
-arista Grafo::getArista(int pos){
-    return aristas[pos];
-}
-
-void Grafo::aniadirNodo(nodo n){
-    bool esta = false;
-    for(int i=0;i<nodos.size() && !esta;i++){
-        if(n.getIDNodo()== nodos[i].getIDNodo() && n.getGradoNodo()==nodos[i].getGradoNodo())
-            esta = true;
-    }
-
-    if(!esta){
-        nodos.push_back(n);
-    }
-}
-
-void Grafo::aniadirArista(arista a){
-    bool esta = false;
-    for(int i=0;i<aristas.size() && !esta;i++){
-        if(a.getIDArista() == aristas[i].getIDArista())
-            esta = true;
-    }
-
-    if(!esta){
-        aniadirNodo(a.getNodo1());
-        aniadirNodo(a.getNodo2());
-        aristas.push_back(a);
-        a.getNodo1().setGrado(a.getNodo1().getGradoNodo()+1);
-        a.getNodo2().setGrado(a.getNodo2().getGradoNodo()+1);
-    }
-}
-
-void Grafo::eliminarNodo(nodo n){
-    bool esta = false;
-    int posicion = 0;
-    for(int i=0;i<nodos.size() && !esta;i++){
-        if(n.getIDNodo()== nodos[i].getIDNodo() && n.getGradoNodo()==nodos[i].getGradoNodo())
-            esta = true;
-            posicion = i;
-    }
-    if(esta){
-        nodos.erase(nodos.begin()+posicion);
-    }
-}
-
-void Grafo::eliminarArista(arista a){
-    bool esta = false;
-    int posicion = 0;
-    for(int i=0;i<nodos.size() && !esta;i++){
-        if(a.getIDArista() == aristas[i].getIDArista())
-            esta = true;
-            posicion = i;
-    }
-
-    if(esta){
-        a.eliminarArista();
-        aristas.erase(aristas.begin()+posicion);
-    }
-}
-
-nodo Grafo::nodoMaxGrado(){
-    nodo resultado;
-    int gradomayor = 1;
-    for(int i=0;i<nodos.size();i++){
-        if(nodos[i].getGradoNodo() > gradomayor){
-            resultado.setGrado(nodos[i].getGradoNodo());
-            resultado.setID(nodos[i].getIDNodo());
-            gradomayor = nodos[i].getIDNodo();
+        Grafo::Grafo(int tamanio){
+            this->n = tamanio;
+            la =new list<int>[n];
         }
-    }
-    return resultado;
-}
-
-void Grafo::eliminarAristasNodo(nodo n){
-    for(int i=0;i<aristas.size();i++){
-        if(n.getIDNodo() == aristas[i].getIDNodo1() || n.getIDNodo() == aristas[i].getIDNodo2()){
-            eliminarArista(aristas[i]);
+        void Grafo::aniadirArista(int n, int a){
+            la[n].push_back(a);
+            la[a].push_back(n);
         }
-    }
-}
+        vector<int> Grafo::recubrirGrafo(){
+            bool visitados[n];
+            vector<int> resultado;
+            for(int i=0;i<n;i++){
+                visitados[i] = false;
+            }
 
-bool Grafo::nodoConAristas(nodo n){
-    bool resultado = false;
-    bool salida = false;
-    for(int i=0;i<aristas.size() && !salida;i++){
-        if(n.getIDNodo() == aristas[i].getIDNodo1() || n.getIDNodo() == aristas[i].getIDNodo2()){
-            resultado = true;
-            salida = true;
-        }
-    }
-    return resultado;
-}
+            list<int>::iterator i;
 
-void Grafo::cubrimientoGrafo(){
-    //Inicializamos los vertices como no visitados
-    bool visitados[nodos.size()];
-    
-    for(int i=0;i<nodos.size();i++){
-        visitados[i] = false;
-    }
-
-    for(int i=0;i<nodos.size();i++){
-        if(visitados[i] == false){
-            for(int k = 0;k<nodos.size();k++){
-                nodo aux = nodos[k];
-                if(visitados[k] == false){
-                    visitados[k] = true;
-                    visitados[i] = true;
-                    break;
+            for(int u=0;u<n;u++){
+                if(visitados[u] == false){
+                    for(i = la[u].begin();i!=la[u].end();i++){
+                        int x = *i;
+                        if(visitados[x] == false){
+                            visitados[x] = true;
+                            visitados[u] = true;
+                            break;
+                        }
+                    }
                 }
             }
-        }
-    }
-    
-    for(int i=0;i<nodos.size();i++){
-        if(visitados[i]){
-            cout<<"Nodo "<<nodos[i].getIDNodo()<<endl;
-        }
-    }    
 
-}
+            
+        for(int i=0;i<n;i++){
+            if(visitados[i] == true)
+                resultado.push_back(i);
+        }
+
+        return resultado;
+    }

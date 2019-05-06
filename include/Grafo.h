@@ -5,33 +5,12 @@
 
 class Grafo{
     private:
-        vector<nodo> nodos;
-        vector<arista> aristas;
+        int n; //Numero de nodos
+        list<int> *la; //Punteros a array que contienen las listas de adyacencia
     public:
-        Grafo();
-
-        Grafo(vector<nodo>nuevosnodos,vector<arista>nuevasaristas);
-
-        nodo getNodo(int pos);
-
-        arista getArista(int pos);
-
-        void aniadirNodo(nodo n);
-
-        void aniadirArista(arista a);
-
-        void eliminarNodo(nodo n);
-
-        void eliminarArista(arista a);
-
-        nodo nodoMaxGrado();
-
-        void eliminarAristasNodo(nodo n);
-
-        bool nodoConAristas(nodo n);
-
-        void cubrimientoGrafo();
-
+        Grafo(int tamanio);
+        void aniadirArista(int n, int a);
+        vector<int> recubrirGrafo();
 };
 
 
